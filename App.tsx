@@ -3,6 +3,7 @@ import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import ToolCard from './components/ToolCard';
 import FloatingLikeButton from './components/FloatingLikeButton';
+import ChatWidget from './components/ChatWidget';
 import AdminPanel from './components/AdminPanel';
 import { CATEGORIES, MOCK_TOOLS, UI_TEXT } from './constants';
 import { CategoryId, Tool } from './types';
@@ -274,8 +275,9 @@ const App: React.FC = () => {
         </main>
       </div>
       
-      {/* Floating Like Button */}
+      {/* Floating Buttons */}
       <FloatingLikeButton lang={lang} />
+      <ChatWidget tools={tools} lang={lang} />
 
       {/* Admin Panel Overlay */}
       <AdminPanel 
