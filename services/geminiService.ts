@@ -1,4 +1,4 @@
-import { GoogleGenAI, Type, Chat } from "@google/genai";
+import { GoogleGenAI, Type } from "@google/genai";
 import { Tool } from "../types";
 
 // Helper to sanitize the tool list for the prompt to save tokens/complexity
@@ -7,8 +7,7 @@ const sanitizeToolsForPrompt = (tools: Tool[]) => {
     id: t.id,
     name: t.name,
     description: t.description,
-    tags: t.tags.join(', '),
-    category: t.category
+    tags: t.tags.join(', ')
   }));
 };
 
@@ -96,33 +95,4 @@ export const generateIconWithGemini = async (name: string, description: string):
     console.error("Error generating icon with Gemini:", error);
     return null;
   }
-};
-
-export const createToolChatSession = (tools: Tool[]): Chat | null => {
-  if (!process.env.API_KEY) return null;
-
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-  const simplifiedTools = sanitizeToolsForPrompt(tools);
-
-  const systemInstruction = `
-    You are the AI Concierge for AI ToolHub.
-    Your goal is to help users find the best AI tools from our directory.
-    
-    Here is the current list of available tools in our database:
-    ${JSON.stringify(simplifiedTools)}
-    
-    Rules:
-    1. Only recommend tools from this list if possible. If the user asks for something we don't have, apologize and say we don't have it yet, but suggest the closest alternative from the list if any.
-    2. Be concise, friendly, and professional.
-    3. If a user asks general AI questions, you can answer them, but try to tie it back to tools in the directory.
-    4. When mentioning a tool, use its exact name.
-    5. Do not hallucinate tools that are not in the provided list.
-  `;
-
-  return ai.chats.create({
-    model: 'gemini-2.5-flash',
-    config: {
-      systemInstruction
-    }
-  });
 };

@@ -57,7 +57,7 @@ const FloatingLikeButton: React.FC<FloatingLikeButtonProps> = ({ lang }) => {
   };
 
   return (
-    <div className="fixed bottom-24 right-6 z-40 flex flex-col items-center">
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-center">
        {/* Floating Particles Container */}
        <div className="absolute bottom-12 pointer-events-none">
         {particles.map(p => (
@@ -91,23 +91,23 @@ const FloatingLikeButton: React.FC<FloatingLikeButtonProps> = ({ lang }) => {
       <button
         onClick={handleClick}
         className={`
-          group relative flex items-center justify-center w-12 h-12 rounded-full shadow-xl 
-          bg-white text-pink-500 border border-pink-100
+          group relative flex items-center justify-center w-14 h-14 rounded-full shadow-2xl 
+          bg-gradient-to-br from-pink-500 to-rose-600 text-white
           hover:scale-110 active:scale-90 transition-all duration-200
         `}
         aria-label={text.like}
       >
         <Heart 
-          size={20} 
+          size={24} 
           className={`
             transition-all duration-300 
-            ${isLiked ? 'fill-pink-500' : 'group-hover:fill-pink-50'}
+            ${isLiked ? 'fill-white scale-110' : 'group-hover:scale-110'}
             ${isAnimating ? 'animate-ping' : ''}
           `}
         />
         
         {/* Ripple effect background */}
-        <div className="absolute inset-0 rounded-full bg-pink-100 opacity-0 group-hover:animate-ping duration-1000"></div>
+        <div className="absolute inset-0 rounded-full bg-white opacity-0 group-hover:animate-ping duration-1000"></div>
       </button>
 
       <style>{`

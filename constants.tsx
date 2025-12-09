@@ -50,11 +50,7 @@ export const UI_TEXT = {
     like: "Like",
     likes: "Likes",
     generateIcon: "Generate Icon",
-    generating: "Generating...",
-    chatTitle: "AI Concierge",
-    chatPlaceholder: "Ask about tools...",
-    chatWelcome: "Hi! I can help you find the perfect AI tool. What are you looking for?",
-    send: "Send"
+    generating: "Generating..."
   },
   zh: {
     searchPlaceholder: "搜索 AI 工具 (例如：'图片生成' 或 '编程助手')...",
@@ -82,11 +78,7 @@ export const UI_TEXT = {
     like: "点赞",
     likes: "次点赞",
     generateIcon: "AI 生成图标",
-    generating: "生成中...",
-    chatTitle: "AI 助手",
-    chatPlaceholder: "询问关于工具的问题...",
-    chatWelcome: "你好！我是您的 AI 助手，可以帮您寻找合适的工具。请问您需要什么？",
-    send: "发送"
+    generating: "生成中..."
   }
 };
 
