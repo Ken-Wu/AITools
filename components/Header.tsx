@@ -1,37 +1,21 @@
-import React, { useState } from 'react';
-import { Search, Sparkles, Menu, Command, Languages, Settings } from 'lucide-react';
+import React from 'react';
+import { Menu, Command, Languages, Settings } from 'lucide-react';
 import { UI_TEXT } from '../constants';
 
 interface HeaderProps {
-  onSearch: (query: string, useSmartSearch: boolean) => void;
   onMobileMenuClick: () => void;
-  isSearching: boolean;
   lang: 'en' | 'zh';
   setLang: (lang: 'en' | 'zh') => void;
   onOpenAdmin: () => void;
 }
 
 const Header: React.FC<HeaderProps> = ({ 
-  onSearch, 
   onMobileMenuClick, 
-  isSearching, 
   lang, 
   setLang,
   onOpenAdmin 
 }) => {
-  const [query, setQuery] = useState('');
   const text = UI_TEXT[lang];
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onSearch(query, false);
-  };
-
-  const handleSmartSearch = () => {
-    if (query.trim()) {
-      onSearch(query, true);
-    }
-  };
 
   const toggleLang = () => {
     setLang(lang === 'en' ? 'zh' : 'en');
@@ -56,34 +40,6 @@ const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
 
-        <div className="flex-1 max-w-2xl mx-4 hidden md:block">
-          <form onSubmit={handleSubmit} className="relative group">
-            <input
-              type="text"
-              placeholder={text.searchPlaceholder}
-              className="w-full pl-10 pr-24 py-2.5 bg-gray-100 border-transparent text-gray-900 placeholder-gray-500 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-xl transition-all outline-none text-sm"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
-            <Search className="absolute left-3 top-3 text-gray-400" size={18} />
-            
-            <button
-              type="button"
-              onClick={handleSmartSearch}
-              disabled={isSearching || !query.trim()}
-              className={`
-                absolute right-1.5 top-1.5 bottom-1.5 px-3 rounded-lg flex items-center gap-1.5 text-xs font-medium transition-colors
-                ${isSearching 
-                  ? 'bg-blue-100 text-blue-400 cursor-wait' 
-                  : 'bg-white text-indigo-600 shadow-sm hover:bg-indigo-50 border border-gray-200'}
-              `}
-            >
-              <Sparkles size={12} className={isSearching ? 'animate-pulse' : ''} />
-              {isSearching ? text.thinking : text.aiSearch}
-            </button>
-          </form>
-        </div>
-
         <div className="flex items-center gap-3 text-sm font-medium text-gray-600">
           <button 
             onClick={toggleLang}
@@ -100,32 +56,7 @@ const Header: React.FC<HeaderProps> = ({
           >
             <Settings size={20} />
           </button>
-
-          <button className="hidden sm:block px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors">
-            {text.login}
-          </button>
         </div>
-      </div>
-      
-      {/* Mobile Search Bar (visible only on small screens) */}
-      <div className="md:hidden px-4 pb-3">
-        <form onSubmit={handleSubmit} className="relative">
-             <input
-              type="text"
-              placeholder={text.searchPlaceholder}
-              className="w-full pl-10 pr-20 py-2 bg-gray-100 rounded-lg outline-none text-sm"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
-            <Search className="absolute left-3 top-2.5 text-gray-400" size={16} />
-            <button 
-              type="button"
-              onClick={handleSmartSearch}
-              className="absolute right-2 top-1 text-indigo-600 p-1"
-            >
-              <Sparkles size={18} />
-            </button>
-        </form>
       </div>
     </header>
   );

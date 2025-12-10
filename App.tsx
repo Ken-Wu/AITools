@@ -137,9 +137,7 @@ const App: React.FC = () => {
     <div className="min-h-screen bg-gray-50 flex flex-col font-sans text-gray-900">
       
       <Header 
-        onSearch={handleSearch} 
         onMobileMenuClick={() => setMobileMenuOpen(true)}
-        isSearching={isSearching}
         lang={lang}
         setLang={setLang}
         onOpenAdmin={() => setShowAdmin(true)}
@@ -175,12 +173,6 @@ const App: React.FC = () => {
                  <p className="text-gray-300 mb-6 text-lg">
                    {text.heroSubtitle}
                  </p>
-                 <button 
-                  onClick={() => document.querySelector('input')?.focus()}
-                  className="bg-white text-gray-900 hover:bg-gray-100 px-6 py-3 rounded-lg font-semibold transition-colors shadow-lg"
-                 >
-                   {text.startSearch}
-                 </button>
                </div>
             </div>
           )}
