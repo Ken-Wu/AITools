@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Sparkles, Menu, Command, Languages, Settings } from 'lucide-react';
+import { Search, Sparkles, Menu, Command, Languages } from 'lucide-react';
 import { UI_TEXT } from '../constants';
 
 interface HeaderProps {
@@ -8,17 +8,9 @@ interface HeaderProps {
   isSearching: boolean;
   lang: 'en' | 'zh';
   setLang: (lang: 'en' | 'zh') => void;
-  onOpenAdmin: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ 
-  onSearch, 
-  onMobileMenuClick, 
-  isSearching, 
-  lang, 
-  setLang,
-  onOpenAdmin 
-}) => {
+const Header: React.FC<HeaderProps> = ({ onSearch, onMobileMenuClick, isSearching, lang, setLang }) => {
   const [query, setQuery] = useState('');
   const text = UI_TEXT[lang];
 
@@ -84,7 +76,7 @@ const Header: React.FC<HeaderProps> = ({
           </form>
         </div>
 
-        <div className="flex items-center gap-3 text-sm font-medium text-gray-600">
+        <div className="flex items-center gap-4 text-sm font-medium text-gray-600">
           <button 
             onClick={toggleLang}
             className="flex items-center gap-2 hover:text-blue-600 transition-colors px-2 py-1 rounded-md hover:bg-gray-100"
@@ -92,13 +84,8 @@ const Header: React.FC<HeaderProps> = ({
             <Languages size={18} />
             <span>{lang === 'en' ? '中文' : 'English'}</span>
           </button>
-          
-          <button 
-            onClick={onOpenAdmin}
-            className="p-2 hover:bg-gray-100 rounded-lg text-gray-500 hover:text-blue-600 transition-colors"
-            title="Configuration"
-          >
-            <Settings size={20} />
+          <button className="px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors">
+            {text.login}
           </button>
         </div>
       </div>

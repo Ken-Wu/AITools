@@ -13,7 +13,7 @@ import {
 import React from 'react';
 
 export const CATEGORIES: Category[] = [
-  { id: 'productivity', label: 'Hello Tools', labelZh: '哈啰工具', iconName: 'Briefcase' },
+  { id: 'all', label: 'All Tools', labelZh: '全部工具', iconName: 'LayoutGrid' },
   { id: 'text', label: 'AI Writing', labelZh: 'AI 写作', iconName: 'Type' },
   { id: 'image', label: 'AI Image', labelZh: 'AI 图像', iconName: 'Image' },
   { id: 'video', label: 'AI Video', labelZh: 'AI 视频', iconName: 'Video' },
@@ -21,6 +21,7 @@ export const CATEGORIES: Category[] = [
   { id: 'code', label: 'AI Coding', labelZh: 'AI 编程', iconName: 'Code' },
   { id: 'design', label: 'AI Design', labelZh: 'AI 设计', iconName: 'PenTool' },
   { id: 'marketing', label: 'Marketing', labelZh: '营销工具', iconName: 'Megaphone' },
+  { id: 'productivity', label: 'Office', labelZh: '办公效率', iconName: 'Briefcase' },
 ];
 
 export const UI_TEXT = {
@@ -28,6 +29,7 @@ export const UI_TEXT = {
     searchPlaceholder: "Search tools (e.g., 'image generator')...",
     aiSearch: "AI Search",
     thinking: "Thinking...",
+    login: "Login",
     submitTool: "Submit Tool",
     submitDesc: "Have an AI tool? Submit it to our directory.",
     submitBtn: "Submit Now",
@@ -47,14 +49,13 @@ export const UI_TEXT = {
     footer: "© 2024 AI ToolHub. Powered by Gemini.",
     newFeatures: "New Features",
     like: "Like",
-    likes: "Likes",
-    generateIcon: "Generate Icon",
-    generating: "Generating..."
+    likes: "Likes"
   },
   zh: {
     searchPlaceholder: "搜索 AI 工具 (例如：'图片生成' 或 '编程助手')...",
     aiSearch: "AI 搜索",
     thinking: "思考中...",
+    login: "登录",
     submitTool: "提交工具",
     submitDesc: "有好的 AI 工具？提交到我们的目录。",
     submitBtn: "立即提交",
@@ -74,9 +75,7 @@ export const UI_TEXT = {
     footer: "© 2024 AI ToolHub. 由 Gemini 驱动。",
     newFeatures: "新功能",
     like: "点赞",
-    likes: "次点赞",
-    generateIcon: "AI 生成图标",
-    generating: "生成中..."
+    likes: "次点赞"
   }
 };
 
@@ -85,7 +84,6 @@ export const MOCK_TOOLS: Tool[] = [
     id: '1',
     name: 'ChatGPT',
     description: 'Advanced conversational AI for writing, coding, and analysis.',
-    descriptionZh: '强大的对话式AI，擅长写作、编程和分析任务。',
     category: 'text',
     url: 'https://chat.openai.com',
     iconUrl: 'https://www.google.com/s2/favicons?domain=openai.com&sz=128',
@@ -96,7 +94,6 @@ export const MOCK_TOOLS: Tool[] = [
     id: '2',
     name: 'Midjourney',
     description: 'High-quality artistic image generation from text prompts.',
-    descriptionZh: '通过文本提示生成高质量、艺术感极强的图像。',
     category: 'image',
     url: 'https://www.midjourney.com',
     iconUrl: 'https://www.google.com/s2/favicons?domain=midjourney.com&sz=128',
@@ -107,7 +104,6 @@ export const MOCK_TOOLS: Tool[] = [
     id: '3',
     name: 'Jasper',
     description: 'AI content creator for marketing teams and blogs.',
-    descriptionZh: '专为营销团队和博主设计的AI内容创作助手。',
     category: 'marketing',
     url: 'https://www.jasper.ai',
     iconUrl: 'https://www.google.com/s2/favicons?domain=jasper.ai&sz=128',
@@ -117,7 +113,6 @@ export const MOCK_TOOLS: Tool[] = [
     id: '4',
     name: 'GitHub Copilot',
     description: 'Your AI pair programmer that helps write better code.',
-    descriptionZh: '您的AI结对程序员，助您编写更优质的代码。',
     category: 'code',
     url: 'https://github.com/features/copilot',
     iconUrl: 'https://www.google.com/s2/favicons?domain=github.com&sz=128',
@@ -127,7 +122,6 @@ export const MOCK_TOOLS: Tool[] = [
     id: '5',
     name: 'Runway',
     description: 'Advanced video editing and generation suite powered by AI.',
-    descriptionZh: 'AI驱动的专业视频编辑与生成工具套件。',
     category: 'video',
     url: 'https://runwayml.com',
     iconUrl: 'https://www.google.com/s2/favicons?domain=runwayml.com&sz=128',
@@ -137,7 +131,6 @@ export const MOCK_TOOLS: Tool[] = [
     id: '6',
     name: 'ElevenLabs',
     description: 'The most realistic text-to-speech and voice cloning software.',
-    descriptionZh: '目前最逼真的文本转语音（TTS）与语音克隆软件。',
     category: 'audio',
     url: 'https://elevenlabs.io',
     iconUrl: 'https://www.google.com/s2/favicons?domain=elevenlabs.io&sz=128',
@@ -147,7 +140,6 @@ export const MOCK_TOOLS: Tool[] = [
     id: '7',
     name: 'Canva Magic',
     description: 'AI-powered design tools integrated into the Canva suite.',
-    descriptionZh: 'Canva设计套件中集成的智能化AI设计工具。',
     category: 'design',
     url: 'https://www.canva.com',
     iconUrl: 'https://www.google.com/s2/favicons?domain=canva.com&sz=128',
@@ -157,7 +149,6 @@ export const MOCK_TOOLS: Tool[] = [
     id: '8',
     name: 'Notion AI',
     description: 'Write, plan, and get organized with AI right inside Notion.',
-    descriptionZh: '直接在Notion中利用AI进行写作、规划和整理。',
     category: 'productivity',
     url: 'https://www.notion.so',
     iconUrl: 'https://www.google.com/s2/favicons?domain=notion.so&sz=128',
@@ -167,7 +158,6 @@ export const MOCK_TOOLS: Tool[] = [
     id: '9',
     name: 'Stable Diffusion',
     description: 'Open source text-to-image model for detailed generation.',
-    descriptionZh: '强大的开源文本转图像模型，生成细节丰富。',
     category: 'image',
     url: 'https://stability.ai',
     iconUrl: 'https://www.google.com/s2/favicons?domain=stability.ai&sz=128',
@@ -177,7 +167,6 @@ export const MOCK_TOOLS: Tool[] = [
     id: '10',
     name: 'Synthesia',
     description: 'Create professional AI videos from text in minutes.',
-    descriptionZh: '只需输入文本，几分钟内即可生成专业级AI视频。',
     category: 'video',
     url: 'https://www.synthesia.io',
     iconUrl: 'https://www.google.com/s2/favicons?domain=synthesia.io&sz=128',
@@ -187,7 +176,6 @@ export const MOCK_TOOLS: Tool[] = [
     id: '11',
     name: 'Claude',
     description: 'Next-generation AI assistant built for work and reliability.',
-    descriptionZh: '专为工作场景打造的下一代安全可靠的AI助手。',
     category: 'text',
     url: 'https://claude.ai',
     iconUrl: 'https://www.google.com/s2/favicons?domain=anthropic.com&sz=128',
@@ -197,7 +185,6 @@ export const MOCK_TOOLS: Tool[] = [
     id: '12',
     name: 'Framer',
     description: 'Design and publish your dream site with AI.',
-    descriptionZh: '利用AI技术设计并发布您梦想中的网站。',
     category: 'design',
     url: 'https://framer.com',
     iconUrl: 'https://www.google.com/s2/favicons?domain=framer.com&sz=128',
@@ -207,7 +194,6 @@ export const MOCK_TOOLS: Tool[] = [
     id: '13',
     name: 'Suno',
     description: 'Make a song about anything with AI.',
-    descriptionZh: '使用AI创作关于任何主题的完整歌曲。',
     category: 'audio',
     url: 'https://suno.ai',
     iconUrl: 'https://www.google.com/s2/favicons?domain=suno.com&sz=128',
@@ -217,7 +203,6 @@ export const MOCK_TOOLS: Tool[] = [
     id: '14',
     name: 'Cursor',
     description: 'The AI code editor built for pair programming.',
-    descriptionZh: '专为结对编程体验打造的智能AI代码编辑器。',
     category: 'code',
     url: 'https://cursor.sh',
     iconUrl: 'https://www.google.com/s2/favicons?domain=cursor.com&sz=128',
@@ -227,7 +212,6 @@ export const MOCK_TOOLS: Tool[] = [
     id: '15',
     name: 'Perplexity',
     description: 'AI-powered search engine for accurate answers.',
-    descriptionZh: '能够提供精准答案和来源的AI驱动搜索引擎。',
     category: 'text',
     url: 'https://perplexity.ai',
     iconUrl: 'https://www.google.com/s2/favicons?domain=perplexity.ai&sz=128',

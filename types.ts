@@ -2,7 +2,6 @@ export interface Tool {
   id: string;
   name: string;
   description: string;
-  descriptionZh: string;
   category: CategoryId;
   url: string;
   iconUrl: string;
@@ -11,6 +10,7 @@ export interface Tool {
 }
 
 export type CategoryId = 
+  | 'all'
   | 'text'
   | 'image'
   | 'video'

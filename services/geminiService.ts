@@ -67,32 +67,3 @@ export const searchToolsWithGemini = async (query: string, allTools: Tool[]): Pr
     return [];
   }
 };
-
-export const generateIconWithGemini = async (name: string, description: string): Promise<string | null> => {
-  if (!process.env.API_KEY) {
-    console.warn("Gemini API Key is missing.");
-    return null;
-  }
-
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-  const prompt = `Create a simple, modern, minimalist square app icon for an AI tool named "${name}". The tool does: ${description}. Flat design, high contrast, suitable for a favicon.`;
-
-  try {
-    const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash-image',
-      contents: { parts: [{ text: prompt }] },
-      // Note: responseMimeType is not supported for gemini-2.5-flash-image
-    });
-
-    // Extract image from response parts
-    for (const part of response.candidates?.[0]?.content?.parts || []) {
-      if (part.inlineData) {
-        return `data:${part.inlineData.mimeType};base64,${part.inlineData.data}`;
-      }
-    }
-    return null;
-  } catch (error) {
-    console.error("Error generating icon with Gemini:", error);
-    return null;
-  }
-};
