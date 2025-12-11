@@ -1,18 +1,14 @@
 import React, { useState } from 'react';
-import { Search, Sparkles, Menu, Command, Languages } from 'lucide-react';
-import { UI_TEXT } from '../constants';
+import { Search, Sparkles, Menu, Command } from 'lucide-react';
 
 interface HeaderProps {
   onSearch: (query: string, useSmartSearch: boolean) => void;
   onMobileMenuClick: () => void;
   isSearching: boolean;
-  lang: 'en' | 'zh';
-  setLang: (lang: 'en' | 'zh') => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ onSearch, onMobileMenuClick, isSearching, lang, setLang }) => {
+const Header: React.FC<HeaderProps> = ({ onSearch, onMobileMenuClick, isSearching }) => {
   const [query, setQuery] = useState('');
-  const text = UI_TEXT[lang];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,10 +19,6 @@ const Header: React.FC<HeaderProps> = ({ onSearch, onMobileMenuClick, isSearchin
     if (query.trim()) {
       onSearch(query, true);
     }
-  };
-
-  const toggleLang = () => {
-    setLang(lang === 'en' ? 'zh' : 'en');
   };
 
   return (
@@ -52,7 +44,7 @@ const Header: React.FC<HeaderProps> = ({ onSearch, onMobileMenuClick, isSearchin
           <form onSubmit={handleSubmit} className="relative group">
             <input
               type="text"
-              placeholder={text.searchPlaceholder}
+              placeholder="Search tools (e.g., 'image generator' or 'helper for coding')..."
               className="w-full pl-10 pr-24 py-2.5 bg-gray-100 border-transparent text-gray-900 placeholder-gray-500 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-xl transition-all outline-none text-sm"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
@@ -71,21 +63,16 @@ const Header: React.FC<HeaderProps> = ({ onSearch, onMobileMenuClick, isSearchin
               `}
             >
               <Sparkles size={12} className={isSearching ? 'animate-pulse' : ''} />
-              {isSearching ? text.thinking : text.aiSearch}
+              {isSearching ? 'Thinking...' : 'AI Search'}
             </button>
           </form>
         </div>
 
         <div className="flex items-center gap-4 text-sm font-medium text-gray-600">
-          <button 
-            onClick={toggleLang}
-            className="flex items-center gap-2 hover:text-blue-600 transition-colors px-2 py-1 rounded-md hover:bg-gray-100"
-          >
-            <Languages size={18} />
-            <span>{lang === 'en' ? '中文' : 'English'}</span>
-          </button>
+          <a href="#" className="hidden sm:block hover:text-blue-600">Community</a>
+          <a href="#" className="hidden sm:block hover:text-blue-600">Blog</a>
           <button className="px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors">
-            {text.login}
+            Login
           </button>
         </div>
       </div>
@@ -95,7 +82,7 @@ const Header: React.FC<HeaderProps> = ({ onSearch, onMobileMenuClick, isSearchin
         <form onSubmit={handleSubmit} className="relative">
              <input
               type="text"
-              placeholder={text.searchPlaceholder}
+              placeholder="Search AI tools..."
               className="w-full pl-10 pr-20 py-2 bg-gray-100 rounded-lg outline-none text-sm"
               value={query}
               onChange={(e) => setQuery(e.target.value)}

@@ -23,7 +23,6 @@ export type CategoryId =
 export interface Category {
   id: CategoryId;
   label: string;
-  labelZh: string;
   iconName: string;
 }
 

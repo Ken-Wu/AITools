@@ -2,8 +2,7 @@ import React, { useState, useMemo } from 'react';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import ToolCard from './components/ToolCard';
-import FloatingLikeButton from './components/FloatingLikeButton';
-import { CATEGORIES, MOCK_TOOLS, UI_TEXT } from './constants';
+import { CATEGORIES, MOCK_TOOLS } from './constants';
 import { CategoryId, Tool } from './types';
 import { searchToolsWithGemini } from './services/geminiService';
 import { Sparkles, XCircle, Search } from 'lucide-react';
@@ -16,10 +15,6 @@ const App: React.FC = () => {
   // Search state
   const [searchQuery, setSearchQuery] = useState('');
   const [smartResultIds, setSmartResultIds] = useState<string[] | null>(null);
-
-  // Language state
-  const [lang, setLang] = useState<'en' | 'zh'>('en');
-  const text = UI_TEXT[lang];
 
   const handleSearch = async (query: string, useSmartSearch: boolean) => {
     setSearchQuery(query);
@@ -67,8 +62,7 @@ const App: React.FC = () => {
     return tools;
   }, [activeCategory, searchQuery, smartResultIds]);
 
-  const activeCategoryObj = CATEGORIES.find(c => c.id === activeCategory);
-  const activeCategoryLabel = lang === 'zh' ? activeCategoryObj?.labelZh : activeCategoryObj?.label;
+  const activeCategoryLabel = CATEGORIES.find(c => c.id === activeCategory)?.label;
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col font-sans text-gray-900">
@@ -77,8 +71,6 @@ const App: React.FC = () => {
         onSearch={handleSearch} 
         onMobileMenuClick={() => setMobileMenuOpen(true)}
         isSearching={isSearching}
-        lang={lang}
-        setLang={setLang}
       />
 
       <div className="flex flex-1 max-w-7xl mx-auto w-full">
@@ -91,7 +83,6 @@ const App: React.FC = () => {
           }}
           isOpenMobile={mobileMenuOpen}
           setIsOpenMobile={setMobileMenuOpen}
-          lang={lang}
         />
 
         {/* Main Content */}
@@ -106,19 +97,19 @@ const App: React.FC = () => {
                
                <div className="relative z-10 max-w-2xl">
                  <div className="inline-block px-3 py-1 rounded-full bg-white/10 text-xs font-semibold mb-4 border border-white/10">
-                   {text.newFeatures}
+                   New Features
                  </div>
                  <h1 className="text-3xl md:text-4xl font-bold mb-4 leading-tight">
-                   {text.heroTitle}
+                   Discover the Best <span className="text-blue-400">AI Tools</span> for Your Workflow
                  </h1>
                  <p className="text-gray-300 mb-6 text-lg">
-                   {text.heroSubtitle}
+                   Browse hundreds of curated AI applications. Use our Gemini-powered smart search to find exactly what you need.
                  </p>
                  <button 
                   onClick={() => document.querySelector('input')?.focus()}
                   className="bg-white text-gray-900 hover:bg-gray-100 px-6 py-3 rounded-lg font-semibold transition-colors shadow-lg"
                  >
-                   {text.startSearch}
+                   Start Searching
                  </button>
                </div>
             </div>
@@ -128,7 +119,7 @@ const App: React.FC = () => {
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
               <h2 className="text-2xl font-bold text-gray-800">
-                {searchQuery ? text.searchResults : activeCategoryLabel}
+                {searchQuery ? `Search Results` : activeCategoryLabel}
               </h2>
               <span className="bg-gray-200 text-gray-600 text-xs font-bold px-2 py-1 rounded-full">
                 {filteredTools.length}
@@ -141,7 +132,7 @@ const App: React.FC = () => {
                 className="text-sm text-red-500 hover:text-red-700 flex items-center gap-1 font-medium"
               >
                 <XCircle size={16} />
-                {text.clearSearch}
+                Clear Search
               </button>
             )}
           </div>
@@ -151,9 +142,9 @@ const App: React.FC = () => {
             <div className="bg-indigo-50 border border-indigo-100 text-indigo-700 px-4 py-3 rounded-xl mb-6 flex items-start gap-3">
               <Sparkles className="flex-shrink-0 mt-0.5" size={18} />
               <div>
-                <p className="font-semibold text-sm">{text.aiRecTitle}</p>
+                <p className="font-semibold text-sm">AI Recommendation</p>
                 <p className="text-sm opacity-90">
-                  {text.aiRecDesc(searchQuery)}
+                  Gemini selected these tools based on your request: "{searchQuery}"
                 </p>
               </div>
             </div>
@@ -163,7 +154,7 @@ const App: React.FC = () => {
           {filteredTools.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {filteredTools.map((tool) => (
-                <ToolCard key={tool.id} tool={tool} lang={lang} />
+                <ToolCard key={tool.id} tool={tool} />
               ))}
             </div>
           ) : (
@@ -171,28 +162,24 @@ const App: React.FC = () => {
               <div className="bg-gray-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-gray-400">
                 <Search size={32} />
               </div>
-              <h3 className="text-lg font-bold text-gray-700">{text.noToolsTitle}</h3>
-              <p className="text-gray-500 mt-2">{text.noToolsDesc}</p>
+              <h3 className="text-lg font-bold text-gray-700">No tools found</h3>
+              <p className="text-gray-500 mt-2">Try adjusting your search or selecting a different category.</p>
               {searchQuery && (
                  <button 
                   onClick={clearSearch}
                   className="mt-4 text-blue-600 font-medium hover:underline"
                  >
-                   {text.viewAll}
+                   View all tools
                  </button>
               )}
             </div>
           )}
 
           <div className="mt-12 py-8 border-t border-gray-200 text-center text-gray-400 text-sm">
-            <p>{text.footer}</p>
+            <p>© 2024 AI ToolHub. Powered by Gemini.</p>
           </div>
         </main>
       </div>
-      
-      {/* Floating Like Button */}
-      <FloatingLikeButton lang={lang} />
-      
     </div>
   );
 };

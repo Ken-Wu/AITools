@@ -1,5 +1,5 @@
 import React from 'react';
-import { CATEGORIES, getIconComponent, UI_TEXT } from '../constants';
+import { CATEGORIES, getIconComponent } from '../constants';
 import { CategoryId } from '../types';
 
 interface SidebarProps {
@@ -7,18 +7,14 @@ interface SidebarProps {
   onSelectCategory: (id: CategoryId) => void;
   isOpenMobile: boolean;
   setIsOpenMobile: (open: boolean) => void;
-  lang: 'en' | 'zh';
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ 
   activeCategory, 
   onSelectCategory,
   isOpenMobile,
-  setIsOpenMobile,
-  lang
+  setIsOpenMobile
 }) => {
-  const text = UI_TEXT[lang];
-
   return (
     <>
       {/* Mobile Overlay */}
@@ -36,13 +32,13 @@ const Sidebar: React.FC<SidebarProps> = ({
         ${isOpenMobile ? 'translate-x-0' : '-translate-x-full'}
       `}>
         <div className="p-4 lg:hidden flex justify-between items-center border-b">
-          <span className="font-bold text-xl text-gray-800">{text.menu}</span>
+          <span className="font-bold text-xl text-gray-800">Menu</span>
           <button onClick={() => setIsOpenMobile(false)} className="text-gray-500">✕</button>
         </div>
 
         <nav className="p-3 space-y-1">
           <div className="px-3 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">
-            {text.categories}
+            Categories
           </div>
           {CATEGORIES.map((category) => (
             <button
@@ -61,17 +57,17 @@ const Sidebar: React.FC<SidebarProps> = ({
               <span className={activeCategory === category.id ? 'text-blue-600' : 'text-gray-400'}>
                 {getIconComponent(category.iconName)}
               </span>
-              <span>{lang === 'zh' ? category.labelZh : category.label}</span>
+              <span>{category.label}</span>
             </button>
           ))}
         </nav>
 
         <div className="p-4 mt-4 border-t border-gray-100">
            <div className="bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl p-4 text-white">
-             <h3 className="font-bold text-sm mb-1">{text.submitTool}</h3>
-             <p className="text-xs text-blue-100 mb-3">{text.submitDesc}</p>
+             <h3 className="font-bold text-sm mb-1">Submit Tool</h3>
+             <p className="text-xs text-blue-100 mb-3">Have an AI tool? Submit it to our directory.</p>
              <button className="w-full bg-white/20 hover:bg-white/30 text-xs font-semibold py-2 rounded-lg transition-colors">
-               {text.submitBtn}
+               Submit Now
              </button>
            </div>
         </div>
